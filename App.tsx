@@ -15,6 +15,7 @@ import {
   Text,
   useColorScheme,
   View,
+  NativeModules,
 } from 'react-native';
 
 import {
@@ -28,6 +29,8 @@ import {
 type SectionProps = PropsWithChildren<{
   title: string;
 }>;
+
+const {SplashScreen} = NativeModules;
 
 function Section({children, title}: SectionProps): JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
@@ -61,6 +64,11 @@ function App(): JSX.Element {
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
+
+  React.useEffect(() => {
+    console.log(NativeModules);
+    SplashScreen.hide();
+  }, []);
 
   return (
     <SafeAreaView style={backgroundStyle}>
